@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 607fefc586bbee04d94f1273a35bc24c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - capsulePrimRef: {fileID: -7714824670101817997, guid: af0f8a72eb98d5d4997bbbd1494905b2,
+      type: 3}
+  - boxPrimRef: {fileID: 4201348847284560603, guid: af0f8a72eb98d5d4997bbbd1494905b2,
+      type: 3}
+  - spherePrimRef: {fileID: 8934231857841318565, guid: af0f8a72eb98d5d4997bbbd1494905b2,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

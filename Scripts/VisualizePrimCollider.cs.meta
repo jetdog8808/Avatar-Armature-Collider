@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 88d7680e00218c245ab1a47e1c578b85
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _udonSharpBackingUdonBehaviour: {instanceID: 0}
+  - capsulePrim: {instanceID: 0}
+  - boxPrim: {instanceID: 0}
+  - spherePrim: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
