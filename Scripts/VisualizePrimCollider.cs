@@ -59,7 +59,7 @@ namespace JetDog.UserCollider
                 return;
             }
 
-            if(visualMesh == null)
+            if (visualMesh == null)
             {
                 visualMesh = new Mesh();
             }
@@ -119,10 +119,10 @@ namespace JetDog.UserCollider
             Vector3[] verts = visualMesh.vertices;
             for (var i = 0; i < verts.Length; i++)
             {
-                verts[i] = Vector3.Scale(verts[i], box.size) + box.center; 
+                verts[i] = Vector3.Scale(verts[i], box.size) + box.center;
             }
             visualMesh.vertices = verts;
-            
+
             visualMesh.RecalculateBounds();
         }
 
@@ -135,7 +135,7 @@ namespace JetDog.UserCollider
                 verts[i] = (verts[i] * (sphere.radius / 0.5f)) + sphere.center;
             }
             visualMesh.vertices = verts;
-            
+
             visualMesh.RecalculateBounds();
         }
 
@@ -163,7 +163,7 @@ namespace JetDog.UserCollider
             visualMesh.RecalculateTangents();
             visualMesh.RecalculateBounds();
         }
-        
+
         private void CopyMesh(Mesh meshCopy)
         {
             visualMesh.vertices = meshCopy.vertices;

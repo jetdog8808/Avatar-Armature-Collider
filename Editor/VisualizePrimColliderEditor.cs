@@ -44,10 +44,10 @@ namespace JetDog.UserCollider
             {
                 RefNullCheck();
             }
-            
+
             serializedObject.ApplyModifiedProperties();
         }
-        
+
         private void RefNullCheck()
         {
             if (capsulePrim.objectReferenceValue == null) capsulePrim.objectReferenceValue = capsulePrimRef;

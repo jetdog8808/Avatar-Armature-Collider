@@ -18,7 +18,7 @@ namespace JetDog.UserCollider
 
         private void Start()
         {
-            if(_colliderRoot == null)
+            if (_colliderRoot == null)
             {
                 _colliderRoot = GetComponentInParent<AvatarArmatureColliderSystem>();
             }

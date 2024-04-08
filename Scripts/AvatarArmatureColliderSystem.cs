@@ -11,7 +11,7 @@ namespace JetDog.UserCollider
         #region Properties
         [PublicAPI]
         //collider target public api.
-        public VRCPlayerApi UserApi  { get => _userApi; }
+        public VRCPlayerApi UserApi { get => _userApi; }
         [PublicAPI]
         public bool FingerColliderEnable { get => _fingerColliderEnable; }
         [PublicAPI]
@@ -45,6 +45,8 @@ namespace JetDog.UserCollider
 
                 _colliderLayer = value;
 
+                gameObject.layer = value;
+
                 spine_Collider.gameObject.layer = value;
                 chest_Collider.gameObject.layer = value;
                 head_Collider.gameObject.layer = value;
@@ -68,11 +70,35 @@ namespace JetDog.UserCollider
                 upperArm_R_Collider.gameObject.layer = value;
                 lowerArm_R_Collider.gameObject.layer = value;
                 hand_R_Collider.gameObject.layer = value;
+
+                spine_Bone.gameObject.layer = value;
+                chest_Bone.gameObject.layer = value;
+                head_Bone.gameObject.layer = value;
+                index_L_Bone.gameObject.layer = value;
+                middle_L_Bone.gameObject.layer = value;
+                ring_L_Bone.gameObject.layer = value;
+                little_L_Bone.gameObject.layer = value;
+                index_R_Bone.gameObject.layer = value;
+                middle_R_Bone.gameObject.layer = value;
+                ring_R_Bone.gameObject.layer = value;
+                little_R_Bone.gameObject.layer = value;
+                upperLeg_L_Bone.gameObject.layer = value;
+                lowerLeg_L_Bone.gameObject.layer = value;
+                foot_L_Bone.gameObject.layer = value;
+                upperLeg_R_Bone.gameObject.layer = value;
+                lowerLeg_R_Bone.gameObject.layer = value;
+                foot_R_Bone.gameObject.layer = value;
+                upperArm_L_Bone.gameObject.layer = value;
+                lowerArm_L_Bone.gameObject.layer = value;
+                hand_L_Bone.gameObject.layer = value;
+                upperArm_R_Bone.gameObject.layer = value;
+                lowerArm_R_Bone.gameObject.layer = value;
+                hand_R_Bone.gameObject.layer = value;
             }
         }
         [PublicAPI]
         public Rigidbody[] BoneRigidbodies
-        { 
+        {
             get
             {
                 return new Rigidbody[]
@@ -82,7 +108,7 @@ namespace JetDog.UserCollider
                     head_Bone,
                     upperLeg_L_Bone,
                     upperLeg_R_Bone,
-                    lowerLeg_L_Bone,                    
+                    lowerLeg_L_Bone,
                     lowerLeg_R_Bone,
                     foot_L_Bone,
                     foot_R_Bone,
@@ -99,9 +125,9 @@ namespace JetDog.UserCollider
                     index_R_Bone,
                     middle_R_Bone,
                     ring_R_Bone,
-                    little_R_Bone                    
+                    little_R_Bone
                 };
-            } 
+            }
         }
         [PublicAPI]
         public Collider[] BoneColliders
@@ -223,27 +249,27 @@ namespace JetDog.UserCollider
         private bool _colliderIsTrigger = false;
 
         //collider target
-        private VRCPlayerApi _userApi; 
+        private VRCPlayerApi _userApi;
         [SerializeField]
         //collider layers 10 is local, 9 is remote.
-        private int _colliderLayer = 0; 
+        private int _colliderLayer = 0;
 
         private const float averageEyeHeight = 1.64f;
 
         [SerializeField]
-        private bool _fingerColliderEnable = true, 
-            _handColliderEnable = true, 
-            _armColliderEnable = true, 
-            _legColliderEnable = true, 
-            _torsoColliderEnable = true, 
+        private bool _fingerColliderEnable = true,
+            _handColliderEnable = true,
+            _armColliderEnable = true,
+            _legColliderEnable = true,
+            _torsoColliderEnable = true,
             _headColliderEnable = true;
 
-        private bool _avatarCalibrated = false, 
-            _initialized = false, 
-            _updateCollider = false, 
-            _teleportCollider = false, 
-            _delayHeightChangeState = false, 
-            _delaySetHeight = false, 
+        private bool _avatarCalibrated = false,
+            _initialized = false,
+            _updateCollider = false,
+            _teleportCollider = false,
+            _delayHeightChangeState = false,
+            _delaySetHeight = false,
             _detectCollisions = true;
 
         private bool _visualizerState = false;
@@ -255,9 +281,9 @@ namespace JetDog.UserCollider
         #region Bone_Refs
         [SerializeField]
         //rigidbodys for each bone collider
-        private Rigidbody chest_Bone, 
-            spine_Bone, 
-            head_Bone, 
+        private Rigidbody chest_Bone,
+            spine_Bone,
+            head_Bone,
             upperLeg_L_Bone, upperLeg_R_Bone,
             lowerLeg_L_Bone, lowerLeg_R_Bone,
             foot_L_Bone, foot_R_Bone,
@@ -318,21 +344,21 @@ namespace JetDog.UserCollider
         private VisualizePrimCollider[] colliderVisualizers;
 
         [SerializeField]//how big colliders should be
-        private float upperLeg_radius = .12f, 
-            lowerLeg_radius = .09f, 
-            foot_radius = .07f, 
-            upperArm_radius = .1f, 
-            lowerArm_radius = .08f, 
-            SpineFactor = 1.97f, 
-            head_radius = .25f, 
+        private float upperLeg_radius = .12f,
+            lowerLeg_radius = .09f,
+            foot_radius = .07f,
+            upperArm_radius = .1f,
+            lowerArm_radius = .08f,
+            SpineFactor = 1.97f,
+            head_radius = .25f,
             finger_radius = .02f;
         //if bones are valid
-        private bool foot_Valid = false, 
-            index_Valid = false, 
-            middle_Valid = false, 
-            ring_Valid = false, 
-            little_Valid = false, 
-            eye_Valid = false, 
+        private bool foot_Valid = false,
+            index_Valid = false,
+            middle_Valid = false,
+            ring_Valid = false,
+            little_Valid = false,
+            eye_Valid = false,
             humanoidValid = false;
         //furthest valid finger.
         private HumanBodyBones index_L_Furthest, index_R_Furthest,
@@ -349,7 +375,7 @@ namespace JetDog.UserCollider
         [PublicAPI]
         public void SetUser(VRCPlayerApi player)
         {
-            if(!Utilities.IsValid(player))
+            if (!Utilities.IsValid(player))
             {
                 _userApi = null;
                 return;
@@ -391,12 +417,12 @@ namespace JetDog.UserCollider
 
             middle_L_Bone.gameObject.SetActive(state && middle_Valid);
             middle_R_Bone.gameObject.SetActive(state && middle_Valid);
-            
+
             ring_L_Bone.gameObject.SetActive(state && ring_Valid);
             ring_R_Bone.gameObject.SetActive(state && ring_Valid);
-            
+
             little_L_Bone.gameObject.SetActive(state && little_Valid);
-            little_R_Bone.gameObject.SetActive(state && little_Valid);            
+            little_R_Bone.gameObject.SetActive(state && little_Valid);
         }
         [PublicAPI]
         public void SetHandColliderState(bool state)
@@ -863,7 +889,7 @@ namespace JetDog.UserCollider
         {
             _visualizerState = state;
             if (colliderVisualizers == null) return;
-            foreach(VisualizePrimCollider visualizer in colliderVisualizers)
+            foreach (VisualizePrimCollider visualizer in colliderVisualizers)
             {
                 visualizer.VisualizeCollider(state);
             }
@@ -963,7 +989,7 @@ namespace JetDog.UserCollider
             {
                 _CalibrateToAvatar();
             }
-            
+
         }
         public override void PostLateUpdate()
         {
@@ -1202,11 +1228,11 @@ namespace JetDog.UserCollider
             lowerArm_L_Bone.collisionDetectionMode = cDM;
             upperArm_R_Bone.collisionDetectionMode = cDM;
             lowerArm_R_Bone.collisionDetectionMode = cDM;
-            
-            
+
+
         }
         //ignore self collision
-        private void _ColliderIgnoreSelf() 
+        private void _ColliderIgnoreSelf()
         {
             Collider[] colliderArray = BoneColliders;
 
@@ -1372,7 +1398,7 @@ namespace JetDog.UserCollider
                 index_Valid = humanoidValid;
                 middle_Valid = humanoidValid;
                 ring_Valid = humanoidValid;
-                little_Valid = humanoidValid;                
+                little_Valid = humanoidValid;
             }
 
             _UpdateLimbStates();
@@ -1503,7 +1529,7 @@ namespace JetDog.UserCollider
         //dissable all colliders
         private void _SetCollidersEnabled(bool state)
         {
-            
+
             index_L_Collider.enabled = state;
             index_R_Collider.enabled = state;
 
@@ -1583,7 +1609,7 @@ namespace JetDog.UserCollider
                 if (!_delaySetHeight) return;
                 _CalibrateToAvatar();
             }
-            
+
             _delaySetHeight = false;
         }
         //sizes a capsule collider to cover two points 
@@ -1664,7 +1690,7 @@ namespace JetDog.UserCollider
             {
                 upperArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftUpperArm), _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm));
                 lowerArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftLowerArm), _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm));
-                
+
                 upperArm_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightUpperArm), _userApi.GetBoneRotation(HumanBodyBones.RightUpperArm));
                 lowerArm_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightLowerArm), _userApi.GetBoneRotation(HumanBodyBones.RightLowerArm));
             }
@@ -1713,7 +1739,7 @@ namespace JetDog.UserCollider
                     little_R_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(little_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightLittleProximal) * Vector3.right));
                 }
             }
-            
+
         }
         private void _TeleportPose()
         {
@@ -1760,7 +1786,7 @@ namespace JetDog.UserCollider
                 upperArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm);
                 lowerArm_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftLowerArm);
                 lowerArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm);
-                
+
                 upperArm_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightUpperArm);
                 upperArm_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightUpperArm);
                 lowerArm_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightLowerArm);
@@ -1860,7 +1886,7 @@ namespace JetDog.UserCollider
             }
 
             _teleportCollider = false;
-            
+
         }
         #endregion Move Colliders
 

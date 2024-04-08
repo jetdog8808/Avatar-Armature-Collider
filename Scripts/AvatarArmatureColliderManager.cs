@@ -19,14 +19,14 @@ namespace JetDog.UserCollider
 
         [SerializeField]
         //collider layers 10 is local, 9 is remote.
-        private int localLayer = 10, 
+        private int localLayer = 10,
             remoteLayer = 9;
         [SerializeField]
-        private bool fingerCollision = false, 
-            handCollision = true, 
-            armCollision = true, 
-            legCollision = false, 
-            torsoCollision = true, 
+        private bool fingerCollision = false,
+            handCollision = true,
+            armCollision = true,
+            legCollision = false,
+            torsoCollision = true,
             headCollision = false;
         private DataDictionary colliderDictionary = new DataDictionary();
         private DataList UserIdList = new DataList();
@@ -105,7 +105,7 @@ namespace JetDog.UserCollider
         {
             AvatarArmatureColliderSystem newCollider = Instantiate(prefabRef.gameObject, Vector3.zero, Quaternion.identity).GetComponent<AvatarArmatureColliderSystem>();
             newCollider.SetUser(player);
-            
+
 
             if (player.isLocal)
             {
