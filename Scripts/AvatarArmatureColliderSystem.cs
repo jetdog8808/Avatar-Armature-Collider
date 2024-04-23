@@ -229,6 +229,120 @@ namespace JetDog.UserCollider
             }
         }
         [PublicAPI]
+        public LayerMask IncludeLayers
+        {
+            get => _includeLayers;
+            set
+            {
+                _includeLayers = value;
+
+                chest_Bone.includeLayers = _includeLayers;
+                spine_Bone.includeLayers = _includeLayers;
+                head_Bone.includeLayers = _includeLayers;
+                upperLeg_L_Bone.includeLayers = _includeLayers;
+                lowerLeg_L_Bone.includeLayers = _includeLayers;
+                foot_L_Bone.includeLayers = _includeLayers;
+                upperLeg_R_Bone.includeLayers = _includeLayers;
+                lowerLeg_R_Bone.includeLayers = _includeLayers;
+                foot_R_Bone.includeLayers = _includeLayers;
+                upperArm_L_Bone.includeLayers = _includeLayers;
+                lowerArm_L_Bone.includeLayers = _includeLayers;
+                hand_L_Bone.includeLayers = _includeLayers;
+                upperArm_R_Bone.includeLayers = _includeLayers;
+                lowerArm_R_Bone.includeLayers = _includeLayers;
+                hand_R_Bone.includeLayers = _includeLayers;
+                index_L_Bone.includeLayers = _includeLayers;
+                middle_L_Bone.includeLayers = _includeLayers;
+                ring_L_Bone.includeLayers = _includeLayers;
+                little_L_Bone.includeLayers = _includeLayers;
+                index_R_Bone.includeLayers = _includeLayers;
+                middle_R_Bone.includeLayers = _includeLayers;
+                ring_R_Bone.includeLayers = _includeLayers;
+                little_R_Bone.includeLayers = _includeLayers;
+
+                chest_Collider.includeLayers = _includeLayers;
+                spine_Collider.includeLayers = _includeLayers;
+                head_Collider.includeLayers = _includeLayers;
+                upperLeg_L_Collider.includeLayers = _includeLayers;
+                lowerLeg_L_Collider.includeLayers = _includeLayers;
+                foot_L_Collider.includeLayers = _includeLayers;
+                upperLeg_R_Collider.includeLayers = _includeLayers;
+                lowerLeg_R_Collider.includeLayers = _includeLayers;
+                foot_R_Collider.includeLayers = _includeLayers;
+                upperArm_L_Collider.includeLayers = _includeLayers;
+                lowerArm_L_Collider.includeLayers = _includeLayers;
+                hand_L_Collider.includeLayers = _includeLayers;
+                upperArm_R_Collider.includeLayers = _includeLayers;
+                lowerArm_R_Collider.includeLayers = _includeLayers;
+                hand_R_Collider.includeLayers = _includeLayers;
+                index_L_Collider.includeLayers = _includeLayers;
+                middle_L_Collider.includeLayers = _includeLayers;
+                ring_L_Collider.includeLayers = _includeLayers;
+                little_L_Collider.includeLayers = _includeLayers;
+                index_R_Collider.includeLayers = _includeLayers;
+                middle_R_Collider.includeLayers = _includeLayers;
+                ring_R_Collider.includeLayers = _includeLayers;
+                little_R_Collider.includeLayers = _includeLayers;
+            }
+        }
+        [PublicAPI]
+        public LayerMask ExcludeLayers
+        {
+            get => _excludeLayers;
+            set
+            {
+                _excludeLayers = value;
+
+                chest_Bone.excludeLayers = _excludeLayers;
+                spine_Bone.excludeLayers = _excludeLayers;
+                head_Bone.excludeLayers = _excludeLayers;
+                upperLeg_L_Bone.excludeLayers = _excludeLayers;
+                lowerLeg_L_Bone.excludeLayers = _excludeLayers;
+                foot_L_Bone.excludeLayers = _excludeLayers;
+                upperLeg_R_Bone.excludeLayers = _excludeLayers;
+                lowerLeg_R_Bone.excludeLayers = _excludeLayers;
+                foot_R_Bone.excludeLayers = _excludeLayers;
+                upperArm_L_Bone.excludeLayers = _excludeLayers;
+                lowerArm_L_Bone.excludeLayers = _excludeLayers;
+                hand_L_Bone.excludeLayers = _excludeLayers;
+                upperArm_R_Bone.excludeLayers = _excludeLayers;
+                lowerArm_R_Bone.excludeLayers = _excludeLayers;
+                hand_R_Bone.excludeLayers = _excludeLayers;
+                index_L_Bone.excludeLayers = _excludeLayers;
+                middle_L_Bone.excludeLayers = _excludeLayers;
+                ring_L_Bone.excludeLayers = _excludeLayers;
+                little_L_Bone.excludeLayers = _excludeLayers;
+                index_R_Bone.excludeLayers = _excludeLayers;
+                middle_R_Bone.excludeLayers = _excludeLayers;
+                ring_R_Bone.excludeLayers = _excludeLayers;
+                little_R_Bone.excludeLayers = _excludeLayers;
+
+                chest_Collider.excludeLayers = _excludeLayers;
+                spine_Collider.excludeLayers = _excludeLayers;
+                head_Collider.excludeLayers = _excludeLayers;
+                upperLeg_L_Collider.excludeLayers = _excludeLayers;
+                lowerLeg_L_Collider.excludeLayers = _excludeLayers;
+                foot_L_Collider.excludeLayers = _excludeLayers;
+                upperLeg_R_Collider.excludeLayers = _excludeLayers;
+                lowerLeg_R_Collider.excludeLayers = _excludeLayers;
+                foot_R_Collider.excludeLayers = _excludeLayers;
+                upperArm_L_Collider.excludeLayers = _excludeLayers;
+                lowerArm_L_Collider.excludeLayers = _excludeLayers;
+                hand_L_Collider.excludeLayers = _excludeLayers;
+                upperArm_R_Collider.excludeLayers = _excludeLayers;
+                lowerArm_R_Collider.excludeLayers = _excludeLayers;
+                hand_R_Collider.excludeLayers = _excludeLayers;
+                index_L_Collider.excludeLayers = _excludeLayers;
+                middle_L_Collider.excludeLayers = _excludeLayers;
+                ring_L_Collider.excludeLayers = _excludeLayers;
+                little_L_Collider.excludeLayers = _excludeLayers;
+                index_R_Collider.excludeLayers = _excludeLayers;
+                middle_R_Collider.excludeLayers = _excludeLayers;
+                ring_R_Collider.excludeLayers = _excludeLayers;
+                little_R_Collider.excludeLayers = _excludeLayers;
+            }
+        }
+        [PublicAPI]
         public bool VisualizerState { get => _visualizerState; }
         //isActiveAndEnabled not whitelisted so recreated till whitelisted
         private new bool isActiveAndEnabled
@@ -245,14 +359,18 @@ namespace JetDog.UserCollider
         [SerializeField]
         //get local api on start
         private bool getLocalUser = false;
-        [SerializeField]
-        private bool _colliderIsTrigger = false;
-
         //collider target
         private VRCPlayerApi _userApi;
+
         [SerializeField]
         //collider layers 10 is local, 9 is remote.
         private int _colliderLayer = 0;
+        [SerializeField]
+        private bool _colliderIsTrigger = false;
+        [SerializeField]
+        private LayerMask _includeLayers;
+        [SerializeField]
+        private LayerMask _excludeLayers;
 
         private const float averageEyeHeight = 1.64f;
 
@@ -914,6 +1032,8 @@ namespace JetDog.UserCollider
 
                 ColliderLayer = _colliderLayer;
                 ColliderIsTrigger = _colliderIsTrigger;
+                IncludeLayers = _includeLayers;
+                ExcludeLayers = _excludeLayers;
                 colliderVisualizers = GetComponentsInChildren<VisualizePrimCollider>(true);
                 if (_visualizerState && _avatarCalibrated) VisualizeColliders(true);
 
@@ -1059,6 +1179,7 @@ namespace JetDog.UserCollider
 
             chest_Bone_T.localScale = Vector3.one;
             spine_Bone_T.localScale = Vector3.one;
+            head_Bone_T.localScale = Vector3.one;
             upperLeg_L_Bone_T.localScale = Vector3.one;
             lowerLeg_L_Bone_T.localScale = Vector3.one;
             foot_L_Bone_T.localScale = Vector3.one;
@@ -1082,6 +1203,7 @@ namespace JetDog.UserCollider
 
 
             chest_Collider_T.localScale = Vector3.one;
+            spine_Collider_T.localScale = Vector3.one;
             head_Collider_T.localScale = Vector3.one;
             index_L_Collider_T.localScale = Vector3.one;
             middle_L_Collider_T.localScale = Vector3.one;
@@ -1150,14 +1272,13 @@ namespace JetDog.UserCollider
             lowerArm_L_Collider.center = Vector3.zero;
             upperArm_R_Collider.center = Vector3.zero;
             lowerArm_R_Collider.center = Vector3.zero;
-
-            ColliderIsTrigger = _colliderIsTrigger;
         }
         private void _RigidbodyInit()
         {
             bool boneKinematic = true;
             chest_Bone.isKinematic = boneKinematic;
             spine_Bone.isKinematic = boneKinematic;
+            head_Bone.isKinematic = boneKinematic;
             upperLeg_L_Bone.isKinematic = boneKinematic;
             lowerLeg_L_Bone.isKinematic = boneKinematic;
             foot_L_Bone.isKinematic = boneKinematic;
@@ -1182,6 +1303,7 @@ namespace JetDog.UserCollider
             RigidbodyInterpolation interpMode = RigidbodyInterpolation.None;
             chest_Bone.interpolation = interpMode;
             spine_Bone.interpolation = interpMode;
+            head_Bone.interpolation = interpMode;
             upperLeg_L_Bone.interpolation = interpMode;
             lowerLeg_L_Bone.interpolation = interpMode;
             foot_L_Bone.interpolation = interpMode;
@@ -1220,6 +1342,7 @@ namespace JetDog.UserCollider
             cDM = CollisionDetectionMode.Discrete;
             chest_Bone.collisionDetectionMode = cDM;
             spine_Bone.collisionDetectionMode = cDM;
+            head_Bone.collisionDetectionMode = cDM;
             upperLeg_L_Bone.collisionDetectionMode = cDM;
             lowerLeg_L_Bone.collisionDetectionMode = cDM;
             upperLeg_R_Bone.collisionDetectionMode = cDM;
@@ -1228,7 +1351,6 @@ namespace JetDog.UserCollider
             lowerArm_L_Bone.collisionDetectionMode = cDM;
             upperArm_R_Bone.collisionDetectionMode = cDM;
             lowerArm_R_Bone.collisionDetectionMode = cDM;
-
 
         }
         //ignore self collision

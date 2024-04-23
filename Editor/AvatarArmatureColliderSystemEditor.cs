@@ -8,8 +8,13 @@ namespace JetDog.UserCollider
     {
         #region Fields
         SerializedProperty getLocalUserProperty;
-        SerializedProperty colliderIsTriggerProperty;
         SerializedProperty colliderLayerProperty;
+        SerializedProperty colliderIsTriggerProperty;
+
+        bool layerOverrideDropdown = false;
+        SerializedProperty includeLayersProperty;
+        SerializedProperty excludeLayersProperty;
+
 
         bool enabledSectionsDropdown = false;
         SerializedProperty fingerColliderEnableProperty,
@@ -63,8 +68,10 @@ namespace JetDog.UserCollider
         private void OnEnable()
         {
             getLocalUserProperty = serializedObject.FindProperty("getLocalUser");
-            colliderIsTriggerProperty = serializedObject.FindProperty("_colliderIsTrigger");
             colliderLayerProperty = serializedObject.FindProperty("_colliderLayer");
+            colliderIsTriggerProperty = serializedObject.FindProperty("_colliderIsTrigger");
+            includeLayersProperty = serializedObject.FindProperty("_includeLayers");
+            excludeLayersProperty = serializedObject.FindProperty("_excludeLayers");
 
             fingerColliderEnableProperty = serializedObject.FindProperty("_fingerColliderEnable");
             handColliderEnableProperty = serializedObject.FindProperty("_handColliderEnable");
@@ -138,6 +145,18 @@ namespace JetDog.UserCollider
             EditorGUILayout.PropertyField(getLocalUserProperty);
             EditorGUILayout.PropertyField(colliderIsTriggerProperty);
             colliderLayerProperty.intValue = EditorGUILayout.LayerField("Layer", colliderLayerProperty.intValue);
+
+            layerOverrideDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(layerOverrideDropdown, "Layer Overrides");
+
+            if (layerOverrideDropdown)
+            {
+                EditorGUILayout.PropertyField(includeLayersProperty);
+                EditorGUILayout.PropertyField(excludeLayersProperty);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
+            EditorGUILayout.Space();
 
             enabledSectionsDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(enabledSectionsDropdown, "Enabled collider sections");
 
