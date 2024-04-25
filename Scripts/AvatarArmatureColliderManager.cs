@@ -138,6 +138,10 @@ namespace JetDog.UserCollider
         {
             AvatarArmatureColliderSystem newCollider = Instantiate(prefabRef.gameObject, Vector3.zero, Quaternion.identity).GetComponent<AvatarArmatureColliderSystem>();
             newCollider.SetUser(player);
+            newCollider.DetectCollision = prefabRef.DetectCollision;
+            newCollider.ColliderIsTrigger = prefabRef.ColliderIsTrigger;
+            newCollider.IncludeLayers = prefabRef.IncludeLayers;
+            newCollider.ExcludeLayers = prefabRef.ExcludeLayers;
 
 
             if (player.isLocal)
