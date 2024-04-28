@@ -18,9 +18,20 @@ namespace JetDog.UserCollider
             _localCollidersEnabled = true;
 
         [SerializeField]
+        private bool remoteIsTrigger = false,
+            localIsTrigger = false;
+
+        [SerializeField]
         //collider layers 10 is local, 9 is remote.
         private int localLayer = 10,
             remoteLayer = 9;
+
+        [SerializeField]
+        private LayerMask remoteIncludeLayers,
+            localIncludeLayers,
+            remoteExcludeLayers,
+            localExcludeLayers;
+
         [SerializeField]
         private bool fingerCollision = false,
             handCollision = true,
@@ -144,6 +155,9 @@ namespace JetDog.UserCollider
             {
                 newCollider.gameObject.SetActive(_localCollidersEnabled);
                 newCollider.ColliderLayer = localLayer;
+                newCollider.ColliderIsTrigger = localIsTrigger;
+                newCollider.IncludeLayers = localIncludeLayers;
+                newCollider.ExcludeLayers = localExcludeLayers;
                 localCollider = newCollider;
             }
             else
@@ -151,6 +165,9 @@ namespace JetDog.UserCollider
                 newCollider.gameObject.SetActive(_remoteCollidersEnabled);
 
                 newCollider.ColliderLayer = remoteLayer;
+                newCollider.ColliderIsTrigger = remoteIsTrigger;
+                newCollider.IncludeLayers = remoteIncludeLayers;
+                newCollider.ExcludeLayers = remoteExcludeLayers;
 
                 colliderDictionary.Add(player.playerId, newCollider);
                 UserIdList = colliderDictionary.GetKeys();

@@ -11,8 +11,14 @@ namespace JetDog.UserCollider
         SerializedProperty prefabRefProperty;
         SerializedProperty remoteCollidersEnabledProperty,
             localCollidersEnabledProperty;
+        SerializedProperty remoteIsTriggerProperty,
+            localIstriggerProperty;
         SerializedProperty localLayerProperty,
             remoteLayerProperty;
+        SerializedProperty remoteIncludeLayersProperty,
+            localIncludeLayersProperty,
+            remoteExcludeLayersProperty,
+            localExcludeLayersProperty;
         SerializedProperty fingerCollisionProperty,
             handCollisionProperty,
             armCollisionProperty,
@@ -23,6 +29,9 @@ namespace JetDog.UserCollider
             distanceUpdateRates;
 
         bool lodDropdown = false;
+        bool remoteLayerOverrideDropdown = false,
+            localLayerOverrideDropdown = false;
+        bool enabledSectionsDropdown = false;
         #endregion Fields
 
         #region Methods
@@ -32,8 +41,16 @@ namespace JetDog.UserCollider
             remoteCollidersEnabledProperty = serializedObject.FindProperty("_remoteCollidersEnabled");
             localCollidersEnabledProperty = serializedObject.FindProperty("_localCollidersEnabled");
 
+            remoteIsTriggerProperty = serializedObject.FindProperty("remoteIsTrigger");
+            localIstriggerProperty = serializedObject.FindProperty("localIsTrigger");
+
             localLayerProperty = serializedObject.FindProperty("localLayer");
             remoteLayerProperty = serializedObject.FindProperty("remoteLayer");
+
+            remoteIncludeLayersProperty = serializedObject.FindProperty("remoteIncludeLayers");
+            localIncludeLayersProperty = serializedObject.FindProperty("localIncludeLayers");
+            remoteExcludeLayersProperty = serializedObject.FindProperty("remoteExcludeLayers");
+            localExcludeLayersProperty = serializedObject.FindProperty("localExcludeLayers");
 
             fingerCollisionProperty = serializedObject.FindProperty("fingerCollision");
             handCollisionProperty = serializedObject.FindProperty("handCollision");
@@ -53,19 +70,47 @@ namespace JetDog.UserCollider
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(localCollidersEnabledProperty);
+            EditorGUILayout.PropertyField(localIstriggerProperty);
             localLayerProperty.intValue = EditorGUILayout.LayerField("Local Collider Layer", localLayerProperty.intValue);
+            localLayerOverrideDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(localLayerOverrideDropdown, "Layer Overrides");
+
+            if (localLayerOverrideDropdown)
+            {
+                EditorGUILayout.PropertyField(localIncludeLayersProperty);
+                EditorGUILayout.PropertyField(localExcludeLayersProperty);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
             EditorGUILayout.Space();
             EditorGUILayout.PropertyField(remoteCollidersEnabledProperty);
+            EditorGUILayout.PropertyField(remoteIsTriggerProperty);
             remoteLayerProperty.intValue = EditorGUILayout.LayerField("Remote Collider Layer", remoteLayerProperty.intValue);
+            remoteLayerOverrideDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(remoteLayerOverrideDropdown, "Layer Overrides");
+
+            if (remoteLayerOverrideDropdown)
+            {
+                EditorGUILayout.PropertyField(remoteIncludeLayersProperty);
+                EditorGUILayout.PropertyField(remoteExcludeLayersProperty);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
 
             EditorGUILayout.Space();
 
-            EditorGUILayout.PropertyField(fingerCollisionProperty);
-            EditorGUILayout.PropertyField(handCollisionProperty);
-            EditorGUILayout.PropertyField(armCollisionProperty);
-            EditorGUILayout.PropertyField(legCollisionProperty);
-            EditorGUILayout.PropertyField(torsoCollisionProperty);
-            EditorGUILayout.PropertyField(headCollisionProperty);
+            enabledSectionsDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(enabledSectionsDropdown, "Enabled collider sections");
+
+            if (enabledSectionsDropdown)
+            {
+                EditorGUILayout.PropertyField(fingerCollisionProperty);
+                EditorGUILayout.PropertyField(handCollisionProperty);
+                EditorGUILayout.PropertyField(armCollisionProperty);
+                EditorGUILayout.PropertyField(legCollisionProperty);
+                EditorGUILayout.PropertyField(torsoCollisionProperty);
+                EditorGUILayout.PropertyField(headCollisionProperty);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
 
             EditorGUILayout.Space();
 
