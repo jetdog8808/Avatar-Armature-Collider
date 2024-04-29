@@ -11,6 +11,7 @@ namespace JetDog.UserCollider
         SerializedProperty prefabRefProperty;
         SerializedProperty remoteCollidersEnabledProperty,
             localCollidersEnabledProperty;
+        SerializedProperty localCollisionTransferOwnershipProperty;
         SerializedProperty remoteIsTriggerProperty,
             localIstriggerProperty;
         SerializedProperty localLayerProperty,
@@ -38,6 +39,7 @@ namespace JetDog.UserCollider
         private void OnEnable()
         {
             prefabRefProperty = serializedObject.FindProperty("prefabRef");
+            localCollisionTransferOwnershipProperty = serializedObject.FindProperty("localCollisionTransferOwnership");
             remoteCollidersEnabledProperty = serializedObject.FindProperty("_remoteCollidersEnabled");
             localCollidersEnabledProperty = serializedObject.FindProperty("_localCollidersEnabled");
 
@@ -70,6 +72,7 @@ namespace JetDog.UserCollider
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(localCollidersEnabledProperty);
+            EditorGUILayout.PropertyField(localCollisionTransferOwnershipProperty);
             EditorGUILayout.PropertyField(localIstriggerProperty);
             localLayerProperty.intValue = EditorGUILayout.LayerField("Local Collider Layer", localLayerProperty.intValue);
             localLayerOverrideDropdown = EditorGUILayout.BeginFoldoutHeaderGroup(localLayerOverrideDropdown, "Layer Overrides");

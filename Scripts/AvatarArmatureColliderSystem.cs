@@ -360,6 +360,33 @@ namespace JetDog.UserCollider
         }
         [PublicAPI]
         public bool VisualizerState { get => _visualizerState; }
+        [PublicAPI]
+        public bool CollisionTransferOwnership 
+        { 
+            get => _collisionTransferOwnership; 
+            set 
+            {
+                _collisionTransferOwnership = value;
+
+                if (collisionTransferComps == null) return;
+
+                if (Utilities.IsValid(_userApi))
+                {
+                    foreach (CollisionOwnershipTransfer cof in collisionTransferComps)
+                    {
+                        cof.enabled = _collisionTransferOwnership && _userApi.isLocal;
+                    }
+                }
+                else
+                {
+                    foreach (CollisionOwnershipTransfer cof in collisionTransferComps)
+                    {
+                        cof.enabled = false;
+                    }
+                }
+                          
+            } 
+        }
         //isActiveAndEnabled not whitelisted so recreated till whitelisted
         private new bool isActiveAndEnabled
         {
@@ -411,6 +438,8 @@ namespace JetDog.UserCollider
             _detectCollisions = true;
 
         private bool _visualizerState = false;
+        [SerializeField]
+        private bool _collisionTransferOwnership = true;
 
         private GameObject _gobjCache;
 
@@ -480,6 +509,7 @@ namespace JetDog.UserCollider
             ring_L_Collider_T, ring_R_Collider_T,
             little_L_Collider_T, little_R_Collider_T;
         private VisualizePrimCollider[] colliderVisualizers;
+        private CollisionOwnershipTransfer[] collisionTransferComps;
 
         [SerializeField]//how big colliders should be
         private float upperLeg_radius = .12f,
@@ -524,6 +554,7 @@ namespace JetDog.UserCollider
 
             if (!isActiveAndEnabled || !_initialized) return;
 
+            CollisionTransferOwnership = _collisionTransferOwnership;
             _CalibrateToAvatar();
             _SetCollidersEnabled(true);
         }
@@ -1199,6 +1230,7 @@ namespace JetDog.UserCollider
                 IncludeLayers = _includeLayers;
                 ExcludeLayers = _excludeLayers;
                 colliderVisualizers = GetComponentsInChildren<VisualizePrimCollider>(true);
+                collisionTransferComps = GetComponentsInChildren<CollisionOwnershipTransfer>(true);
                 if (_visualizerState && _avatarCalibrated) VisualizeColliders(true);
 
                 _initialized = true;
@@ -1207,6 +1239,7 @@ namespace JetDog.UserCollider
             _avatarCalibrated = false;
             if (Utilities.IsValid(_userApi))
             {
+                CollisionTransferOwnership = _collisionTransferOwnership;
                 _CalibrateToAvatar();
                 _SetCollidersEnabled(true);
 

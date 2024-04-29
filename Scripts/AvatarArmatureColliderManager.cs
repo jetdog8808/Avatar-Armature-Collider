@@ -49,6 +49,8 @@ namespace JetDog.UserCollider
         private Vector3Int distanceUpdateRates = new Vector3Int(1, 3, 6);
         private int updateRemainder = 0;
         private bool visualizerIsOn = false;
+        [SerializeField]
+        private bool localCollisionTransferOwnership = true;
         #endregion Fields
 
         #region Properties
@@ -155,6 +157,7 @@ namespace JetDog.UserCollider
             {
                 newCollider.gameObject.SetActive(_localCollidersEnabled);
                 newCollider.ColliderLayer = localLayer;
+                newCollider.CollisionTransferOwnership = localCollisionTransferOwnership;
                 newCollider.ColliderIsTrigger = localIsTrigger;
                 newCollider.IncludeLayers = localIncludeLayers;
                 newCollider.ExcludeLayers = localExcludeLayers;

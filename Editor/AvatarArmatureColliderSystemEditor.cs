@@ -8,6 +8,7 @@ namespace JetDog.UserCollider
     {
         #region Fields
         SerializedProperty getLocalUserProperty;
+        SerializedProperty collisionTransferOwnershipProperty;
         SerializedProperty colliderLayerProperty;
         SerializedProperty colliderIsTriggerProperty;
 
@@ -72,6 +73,7 @@ namespace JetDog.UserCollider
         private void OnEnable()
         {
             getLocalUserProperty = serializedObject.FindProperty("getLocalUser");
+            collisionTransferOwnershipProperty = serializedObject.FindProperty("_collisionTransferOwnership");
             colliderLayerProperty = serializedObject.FindProperty("_colliderLayer");
             colliderIsTriggerProperty = serializedObject.FindProperty("_colliderIsTrigger");
             includeLayersProperty = serializedObject.FindProperty("_includeLayers");
@@ -151,6 +153,8 @@ namespace JetDog.UserCollider
             if (UdonSharpGUI.DrawDefaultUdonSharpBehaviourHeader(target)) return;
 
             EditorGUILayout.PropertyField(getLocalUserProperty);
+            EditorGUILayout.PropertyField(collisionTransferOwnershipProperty);
+            EditorGUILayout.Space();
             EditorGUILayout.PropertyField(colliderIsTriggerProperty);
             colliderLayerProperty.intValue = EditorGUILayout.LayerField("Layer", colliderLayerProperty.intValue);
 
