@@ -1267,12 +1267,22 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 6994876959900844755}
   getLocalUser: 0
-  _colliderIsTrigger: 0
   _colliderLayer: 10
-  _fingerColliderEnable: 1
-  _handColliderEnable: 1
-  _armColliderEnable: 1
-  _legColliderEnable: 1
+  _colliderIsTrigger: 0
+  _includeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  _excludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  _fingerColliderEnable_R: 1
+  _fingerColliderEnable_L: 1
+  _handColliderEnable_R: 1
+  _handColliderEnable_L: 1
+  _armColliderEnable_R: 1
+  _armColliderEnable_L: 1
+  _legColliderEnable_R: 1
+  _legColliderEnable_L: 1
   _torsoColliderEnable: 1
   _headColliderEnable: 1
   chest_Bone: {fileID: 3789126095580569723}

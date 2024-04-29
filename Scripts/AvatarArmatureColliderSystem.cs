@@ -13,13 +13,29 @@ namespace JetDog.UserCollider
         //collider target public api.
         public VRCPlayerApi UserApi { get => _userApi; }
         [PublicAPI]
-        public bool FingerColliderEnable { get => _fingerColliderEnable; }
+        public bool FingerColliderEnable { get => _fingerColliderEnable_R || _fingerColliderEnable_L; }
         [PublicAPI]
-        public bool HandColliderEnable { get => _handColliderEnable; }
+        public bool FingerColliderEnable_R { get => _fingerColliderEnable_R; }
         [PublicAPI]
-        public bool ArmColliderEnable { get => _armColliderEnable; }
+        public bool FingerColliderEnable_L { get => _fingerColliderEnable_L; }
         [PublicAPI]
-        public bool LegColliderEnable { get => _legColliderEnable; }
+        public bool HandColliderEnable { get => _handColliderEnable_R || _handColliderEnable_L; }
+        [PublicAPI]
+        public bool HandColliderEnable_R { get => _handColliderEnable_R; }
+        [PublicAPI]
+        public bool HandColliderEnable_L { get => _handColliderEnable_L; }
+        [PublicAPI]
+        public bool ArmColliderEnable { get => _armColliderEnable_R || _armColliderEnable_L; }
+        [PublicAPI]
+        public bool ArmColliderEnable_R { get => _armColliderEnable_R; }
+        [PublicAPI]
+        public bool ArmColliderEnable_L { get => _armColliderEnable_L; }
+        [PublicAPI]
+        public bool LegColliderEnable { get => _legColliderEnable_R || _legColliderEnable_L; }
+        [PublicAPI]
+        public bool LegColliderEnable_R { get => _legColliderEnable_R; }
+        [PublicAPI]
+        public bool LegColliderEnable_L { get => _legColliderEnable_L; }
         [PublicAPI]
         public bool TorsoColliderEnable { get => _torsoColliderEnable; }
         [PublicAPI]
@@ -375,10 +391,14 @@ namespace JetDog.UserCollider
         private const float averageEyeHeight = 1.64f;
 
         [SerializeField]
-        private bool _fingerColliderEnable = true,
-            _handColliderEnable = true,
-            _armColliderEnable = true,
-            _legColliderEnable = true,
+        private bool _fingerColliderEnable_R = true,
+            _fingerColliderEnable_L = true,
+            _handColliderEnable_R = true,
+            _handColliderEnable_L = true,
+            _armColliderEnable_R = true,
+            _armColliderEnable_L = true,
+            _legColliderEnable_R = true,
+            _legColliderEnable_L = true,
             _torsoColliderEnable = true,
             _headColliderEnable = true;
 
@@ -510,7 +530,7 @@ namespace JetDog.UserCollider
         [PublicAPI]
         public void SetFingerColliderState(bool state)
         {
-            if (state == _fingerColliderEnable) return;
+            if ((state == _fingerColliderEnable_R) && (state == _fingerColliderEnable_L)) return;
 
             if (state)
             {
@@ -528,7 +548,8 @@ namespace JetDog.UserCollider
                 little_R_Bone.detectCollisions = false;
             }
 
-            _fingerColliderEnable = state;
+            _fingerColliderEnable_R = state;
+            _fingerColliderEnable_L = state;
 
             index_L_Bone.gameObject.SetActive(state && index_Valid);
             index_R_Bone.gameObject.SetActive(state && index_Valid);
@@ -543,9 +564,50 @@ namespace JetDog.UserCollider
             little_R_Bone.gameObject.SetActive(state && little_Valid);
         }
         [PublicAPI]
+        public void SetFingerColliderState(bool state, bool rightSide)
+        {
+            if (state == (rightSide ? _fingerColliderEnable_R : _fingerColliderEnable_L)) return;
+
+            if (state)
+            {
+                _teleportCollider = true;
+                if (rightSide)
+                {
+                    index_R_Bone.detectCollisions = false;
+                    middle_R_Bone.detectCollisions = false;
+                    ring_R_Bone.detectCollisions = false;
+                    little_R_Bone.detectCollisions = false;
+                }
+                else
+                {
+                    index_L_Bone.detectCollisions = false;
+                    middle_L_Bone.detectCollisions = false;
+                    ring_L_Bone.detectCollisions = false;
+                    little_L_Bone.detectCollisions = false;
+                }
+            }
+
+            if (rightSide)
+            {
+                _fingerColliderEnable_R = state;
+                index_R_Bone.gameObject.SetActive(state && index_Valid);
+                middle_R_Bone.gameObject.SetActive(state && middle_Valid);
+                ring_R_Bone.gameObject.SetActive(state && ring_Valid);
+                little_R_Bone.gameObject.SetActive(state && little_Valid);
+            }
+            else
+            {
+                _fingerColliderEnable_L = state;
+                index_L_Bone.gameObject.SetActive(state && index_Valid);
+                middle_L_Bone.gameObject.SetActive(state && middle_Valid);
+                ring_L_Bone.gameObject.SetActive(state && ring_Valid);
+                little_L_Bone.gameObject.SetActive(state && little_Valid);
+            }
+        }
+        [PublicAPI]
         public void SetHandColliderState(bool state)
         {
-            if (state == _handColliderEnable) return;
+            if ((state == _handColliderEnable_R) && (state == _handColliderEnable_L)) return;
 
             if (state)
             {
@@ -554,15 +616,45 @@ namespace JetDog.UserCollider
                 hand_R_Bone.detectCollisions = false;
             }
 
-            _handColliderEnable = state;
+            _handColliderEnable_R = state;
+            _handColliderEnable_L = state;
 
             hand_L_Bone.gameObject.SetActive(state && humanoidValid);
             hand_R_Bone.gameObject.SetActive(state && humanoidValid);
         }
         [PublicAPI]
+        public void SetHandColliderState(bool state, bool rightSide)
+        {
+            if (state == (rightSide ? _handColliderEnable_R : _handColliderEnable_L)) return;
+
+            if (state)
+            {
+                _teleportCollider = true;
+                if (rightSide)
+                {
+                    hand_R_Bone.detectCollisions = false;
+                }
+                else
+                {
+                    hand_L_Bone.detectCollisions = false;
+                }
+            }
+
+            if (rightSide)
+            {
+                _handColliderEnable_R = state;
+                hand_R_Bone.gameObject.SetActive(state && humanoidValid);
+            }
+            else
+            {
+                _handColliderEnable_L = state;
+                hand_L_Bone.gameObject.SetActive(state && humanoidValid);
+            }
+        }
+        [PublicAPI]
         public void SetArmColliderState(bool state)
         {
-            if (state == _armColliderEnable) return;
+            if ((state == _armColliderEnable_R) && (state == _armColliderEnable_L)) return;
 
             if (state)
             {
@@ -574,7 +666,8 @@ namespace JetDog.UserCollider
                 lowerArm_R_Bone.detectCollisions = false;
             }
 
-            _armColliderEnable = state;
+            _armColliderEnable_R = state;
+            _armColliderEnable_L = state;
 
             upperArm_L_Bone.gameObject.SetActive(state && humanoidValid);
             lowerArm_L_Bone.gameObject.SetActive(state && humanoidValid);
@@ -583,9 +676,42 @@ namespace JetDog.UserCollider
             lowerArm_R_Bone.gameObject.SetActive(state && humanoidValid);
         }
         [PublicAPI]
+        public void SetArmColliderState(bool state, bool rightSide)
+        {
+            if (state == rightSide ? _armColliderEnable_R : ArmColliderEnable_L) return;
+
+            if (state)
+            {
+                _teleportCollider = true;
+                if (rightSide)
+                {
+                    upperArm_R_Bone.detectCollisions = false;
+                    lowerArm_R_Bone.detectCollisions = false;
+                }
+                else
+                {
+                    upperArm_L_Bone.detectCollisions = false;
+                    lowerArm_L_Bone.detectCollisions = false;
+                }
+            }
+
+            if (rightSide)
+            {
+                _armColliderEnable_R = state;
+                upperArm_R_Bone.gameObject.SetActive(state && humanoidValid);
+                lowerArm_R_Bone.gameObject.SetActive(state && humanoidValid);
+            }
+            else
+            {
+                _armColliderEnable_L = state;
+                upperArm_L_Bone.gameObject.SetActive(state && humanoidValid);
+                lowerArm_L_Bone.gameObject.SetActive(state && humanoidValid);
+            }
+        }
+        [PublicAPI]
         public void SetLegColliderState(bool state)
         {
-            if (state == _legColliderEnable) return;
+            if ((state == _legColliderEnable_R) && (state == _legColliderEnable_L)) return;
 
             if (state)
             {
@@ -599,7 +725,8 @@ namespace JetDog.UserCollider
                 foot_R_Bone.detectCollisions = false;
             }
 
-            _legColliderEnable = state;
+            _legColliderEnable_R = state;
+            _legColliderEnable_L = state;
 
             upperLeg_L_Bone.gameObject.SetActive(state && humanoidValid);
             lowerLeg_L_Bone.gameObject.SetActive(state && humanoidValid);
@@ -608,6 +735,43 @@ namespace JetDog.UserCollider
             upperLeg_R_Bone.gameObject.SetActive(state && humanoidValid);
             lowerLeg_R_Bone.gameObject.SetActive(state && humanoidValid);
             foot_R_Bone.gameObject.SetActive(state && humanoidValid);
+        }
+        [PublicAPI]
+        public void SetLegColliderState(bool state, bool rightSide)
+        {
+            if (state == rightSide ? _legColliderEnable_R : LegColliderEnable_L) return;
+
+            if (state)
+            {
+                _teleportCollider = true;
+                if (rightSide)
+                {
+                    upperLeg_R_Bone.detectCollisions = false;
+                    lowerLeg_R_Bone.detectCollisions = false;
+                    foot_R_Bone.detectCollisions = false;
+                }
+                else
+                {
+                    upperLeg_L_Bone.detectCollisions = false;
+                    lowerLeg_L_Bone.detectCollisions = false;
+                    foot_L_Bone.detectCollisions = false;
+                }
+            }
+
+            if (rightSide)
+            {
+                _legColliderEnable_R = state;
+                upperLeg_R_Bone.gameObject.SetActive(state && humanoidValid);
+                lowerLeg_R_Bone.gameObject.SetActive(state && humanoidValid);
+                foot_R_Bone.gameObject.SetActive(state && humanoidValid);
+            }
+            else
+            {
+                _legColliderEnable_L = state;
+                upperLeg_L_Bone.gameObject.SetActive(state && humanoidValid);
+                lowerLeg_L_Bone.gameObject.SetActive(state && humanoidValid);
+                foot_L_Bone.gameObject.SetActive(state && humanoidValid);
+            }
         }
         [PublicAPI]
         public void SetTorsoColliderState(bool state)
@@ -1688,39 +1852,39 @@ namespace JetDog.UserCollider
         }
         private void _UpdateLimbStates()
         {
-            hand_L_Bone.gameObject.SetActive(humanoidValid && _handColliderEnable);
-            hand_R_Bone.gameObject.SetActive(humanoidValid && _handColliderEnable);
+            hand_L_Bone.gameObject.SetActive(humanoidValid && _handColliderEnable_L);
+            hand_R_Bone.gameObject.SetActive(humanoidValid && _handColliderEnable_R);
 
-            upperArm_L_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable);
-            lowerArm_L_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable);
+            upperArm_L_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable_L);
+            lowerArm_L_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable_L);
 
-            upperArm_R_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable);
-            lowerArm_R_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable);
+            upperArm_R_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable_R);
+            lowerArm_R_Bone.gameObject.SetActive(humanoidValid && _armColliderEnable_R);
 
-            upperLeg_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
-            lowerLeg_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
-            foot_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
+            upperLeg_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_L);
+            lowerLeg_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_L);
+            foot_L_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_L);
 
-            upperLeg_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
-            lowerLeg_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
-            foot_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable);
+            upperLeg_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_R);
+            lowerLeg_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_R);
+            foot_R_Bone.gameObject.SetActive(humanoidValid && _legColliderEnable_R);
 
             spine_Bone.gameObject.SetActive(humanoidValid && _torsoColliderEnable);
             chest_Bone.gameObject.SetActive(humanoidValid && _torsoColliderEnable);
 
             head_Bone.gameObject.SetActive(humanoidValid && _headColliderEnable);
 
-            index_L_Bone.gameObject.SetActive(index_Valid && _fingerColliderEnable);
-            index_R_Bone.gameObject.SetActive(index_Valid && _fingerColliderEnable);
+            index_L_Bone.gameObject.SetActive(index_Valid && _fingerColliderEnable_L);
+            index_R_Bone.gameObject.SetActive(index_Valid && _fingerColliderEnable_R);
 
-            middle_L_Bone.gameObject.SetActive(middle_Valid && _fingerColliderEnable);
-            middle_R_Bone.gameObject.SetActive(middle_Valid && _fingerColliderEnable);
+            middle_L_Bone.gameObject.SetActive(middle_Valid && _fingerColliderEnable_L);
+            middle_R_Bone.gameObject.SetActive(middle_Valid && _fingerColliderEnable_R);
 
-            ring_L_Bone.gameObject.SetActive(ring_Valid && _fingerColliderEnable);
-            ring_R_Bone.gameObject.SetActive(ring_Valid && _fingerColliderEnable);
+            ring_L_Bone.gameObject.SetActive(ring_Valid && _fingerColliderEnable_L);
+            ring_R_Bone.gameObject.SetActive(ring_Valid && _fingerColliderEnable_R);
 
-            little_L_Bone.gameObject.SetActive(little_Valid && _fingerColliderEnable);
-            little_R_Bone.gameObject.SetActive(little_Valid && _fingerColliderEnable);
+            little_L_Bone.gameObject.SetActive(little_Valid && _fingerColliderEnable_L);
+            little_R_Bone.gameObject.SetActive(little_Valid && _fingerColliderEnable_R);
         }
         [System.Obsolete("should never be called externally")]
         public void _DelayedHeightChange()
@@ -1797,68 +1961,93 @@ namespace JetDog.UserCollider
                 chest_Bone.Move(tempposition2, Quaternion.LookRotation(_userApi.GetBonePosition(HumanBodyBones.Neck) - tempposition2, _userApi.GetBoneRotation(HumanBodyBones.Chest) * Vector3.right));
             }
 
-            if (_legColliderEnable)
+            if (_legColliderEnable_R)
             {
-                upperLeg_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftUpperLeg), _userApi.GetBoneRotation(HumanBodyBones.LeftUpperLeg));
-                lowerLeg_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftLowerLeg), _userApi.GetBoneRotation(HumanBodyBones.LeftLowerLeg));
-                foot_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftFoot), _userApi.GetBoneRotation(HumanBodyBones.LeftFoot));
-
                 upperLeg_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightUpperLeg), _userApi.GetBoneRotation(HumanBodyBones.RightUpperLeg));
                 lowerLeg_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightLowerLeg), _userApi.GetBoneRotation(HumanBodyBones.RightLowerLeg));
                 foot_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightFoot), _userApi.GetBoneRotation(HumanBodyBones.RightFoot));
             }
 
-            if (_armColliderEnable)
+            if (_legColliderEnable_L)
             {
-                upperArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftUpperArm), _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm));
-                lowerArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftLowerArm), _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm));
+                upperLeg_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftUpperLeg), _userApi.GetBoneRotation(HumanBodyBones.LeftUpperLeg));
+                lowerLeg_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftLowerLeg), _userApi.GetBoneRotation(HumanBodyBones.LeftLowerLeg));
+                foot_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftFoot), _userApi.GetBoneRotation(HumanBodyBones.LeftFoot));
+            }
 
+            if (_armColliderEnable_R)
+            {
                 upperArm_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightUpperArm), _userApi.GetBoneRotation(HumanBodyBones.RightUpperArm));
                 lowerArm_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightLowerArm), _userApi.GetBoneRotation(HumanBodyBones.RightLowerArm));
             }
 
-            if (_handColliderEnable)
+            if (_armColliderEnable_L)
             {
-                hand_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftHand), _userApi.GetBoneRotation(HumanBodyBones.LeftHand));
+                upperArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftUpperArm), _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm));
+                lowerArm_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftLowerArm), _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm));
+            }
+
+            if (_handColliderEnable_R)
+            {
                 hand_R_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.RightHand), _userApi.GetBoneRotation(HumanBodyBones.RightHand));
             }
 
-            if (_fingerColliderEnable)
+            if (_handColliderEnable_L)
+            {
+                hand_L_Bone.Move(_userApi.GetBonePosition(HumanBodyBones.LeftHand), _userApi.GetBoneRotation(HumanBodyBones.LeftHand));
+            }
+
+            if (_fingerColliderEnable_R)
             {
                 if (index_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftIndexProximal);
-                    index_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(index_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftIndexProximal) * Vector3.right));
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightIndexProximal);
                     index_R_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(index_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightIndexProximal) * Vector3.right));
                 }
 
                 if (middle_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftMiddleProximal);
-                    middle_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(middle_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftMiddleProximal) * Vector3.right));
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightMiddleProximal);
                     middle_R_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(middle_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightMiddleProximal) * Vector3.right));
                 }
 
                 if (ring_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftRingProximal);
-                    ring_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(ring_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftRingProximal) * Vector3.right));
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightRingProximal);
                     ring_R_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(ring_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightRingProximal) * Vector3.right));
                 }
 
                 if (little_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftLittleProximal);
-                    little_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(little_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftLittleProximal) * Vector3.right));
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightLittleProximal);
                     little_R_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(little_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightLittleProximal) * Vector3.right));
+                }
+            }
+
+            if (_fingerColliderEnable_L)
+            {
+                if (index_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftIndexProximal);
+                    index_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(index_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftIndexProximal) * Vector3.right));
+                }
+
+                if (middle_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftMiddleProximal);
+                    middle_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(middle_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftMiddleProximal) * Vector3.right));
+                }
+
+                if (ring_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftRingProximal);
+                    ring_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(ring_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftRingProximal) * Vector3.right));
+                }
+
+                if (little_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftLittleProximal);
+                    little_L_Bone.Move(tempposition1, Quaternion.LookRotation(_userApi.GetBonePosition(little_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftLittleProximal) * Vector3.right));
                 }
             }
 
@@ -1885,15 +2074,8 @@ namespace JetDog.UserCollider
                 chest_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(HumanBodyBones.Neck) - tempposition2, _userApi.GetBoneRotation(HumanBodyBones.Chest) * Vector3.right);
             }
 
-            if (_legColliderEnable)
+            if (_legColliderEnable_R)
             {
-                upperLeg_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftUpperLeg);
-                upperLeg_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftUpperLeg);
-                lowerLeg_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftLowerLeg);
-                lowerLeg_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftLowerLeg);
-                foot_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftFoot);
-                foot_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftFoot);
-
                 upperLeg_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightUpperLeg);
                 upperLeg_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightUpperLeg);
                 lowerLeg_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightLowerLeg);
@@ -1902,36 +2084,48 @@ namespace JetDog.UserCollider
                 foot_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightFoot);
             }
 
-            if (_armColliderEnable)
+            if (_legColliderEnable_L)
             {
-                upperArm_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftUpperArm);
-                upperArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm);
-                lowerArm_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftLowerArm);
-                lowerArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm);
+                upperLeg_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftUpperLeg);
+                upperLeg_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftUpperLeg);
+                lowerLeg_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftLowerLeg);
+                lowerLeg_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftLowerLeg);
+                foot_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftFoot);
+                foot_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftFoot);
+            }
 
+            if (_armColliderEnable_R)
+            {
                 upperArm_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightUpperArm);
                 upperArm_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightUpperArm);
                 lowerArm_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightLowerArm);
                 lowerArm_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightLowerArm);
             }
 
-            if (_handColliderEnable)
+            if (_armColliderEnable_L)
             {
-                hand_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftHand);
-                hand_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftHand);
+                upperArm_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftUpperArm);
+                upperArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftUpperArm);
+                lowerArm_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftLowerArm);
+                lowerArm_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftLowerArm);
+            }
 
+            if (_handColliderEnable_R)
+            {
                 hand_R_Bone.position = _userApi.GetBonePosition(HumanBodyBones.RightHand);
                 hand_R_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.RightHand);
             }
 
-            if (_fingerColliderEnable)
+            if (_handColliderEnable_L)
+            {
+                hand_L_Bone.position = _userApi.GetBonePosition(HumanBodyBones.LeftHand);
+                hand_L_Bone.rotation = _userApi.GetBoneRotation(HumanBodyBones.LeftHand);
+            }
+
+            if (_fingerColliderEnable_R)
             {
                 if (index_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftIndexProximal);
-                    index_L_Bone.position = tempposition1;
-                    index_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(index_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftIndexProximal) * Vector3.right);
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightIndexProximal);
                     index_R_Bone.position = tempposition1;
                     index_R_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(index_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightIndexProximal) * Vector3.right);
@@ -1939,10 +2133,6 @@ namespace JetDog.UserCollider
 
                 if (middle_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftMiddleProximal);
-                    middle_L_Bone.position = tempposition1;
-                    middle_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(middle_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftMiddleProximal) * Vector3.right);
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightMiddleProximal);
                     middle_R_Bone.position = tempposition1;
                     middle_R_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(middle_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightMiddleProximal) * Vector3.right);
@@ -1950,10 +2140,6 @@ namespace JetDog.UserCollider
 
                 if (ring_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftRingProximal);
-                    ring_L_Bone.position = tempposition1;
-                    ring_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(ring_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftRingProximal) * Vector3.right);
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightRingProximal);
                     ring_R_Bone.position = tempposition1;
                     ring_R_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(ring_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightRingProximal) * Vector3.right);
@@ -1961,13 +2147,40 @@ namespace JetDog.UserCollider
 
                 if (little_Valid)
                 {
-                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftLittleProximal);
-                    little_L_Bone.position = tempposition1;
-                    little_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(little_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftLittleProximal) * Vector3.right);
-
                     tempposition1 = _userApi.GetBonePosition(HumanBodyBones.RightLittleProximal);
                     little_R_Bone.position = tempposition1;
                     little_R_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(little_R_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.RightLittleProximal) * Vector3.right);
+                }
+            }
+
+            if (_fingerColliderEnable_L)
+            {
+                if (index_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftIndexProximal);
+                    index_L_Bone.position = tempposition1;
+                    index_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(index_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftIndexProximal) * Vector3.right);
+                }
+
+                if (middle_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftMiddleProximal);
+                    middle_L_Bone.position = tempposition1;
+                    middle_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(middle_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftMiddleProximal) * Vector3.right);
+                }
+
+                if (ring_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftRingProximal);
+                    ring_L_Bone.position = tempposition1;
+                    ring_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(ring_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftRingProximal) * Vector3.right);
+                }
+
+                if (little_Valid)
+                {
+                    tempposition1 = _userApi.GetBonePosition(HumanBodyBones.LeftLittleProximal);
+                    little_L_Bone.position = tempposition1;
+                    little_L_Bone.rotation = Quaternion.LookRotation(_userApi.GetBonePosition(little_L_Furthest) - tempposition1, _userApi.GetBoneRotation(HumanBodyBones.LeftLittleProximal) * Vector3.right);
                 }
             }
 

@@ -59,8 +59,22 @@ MonoBehaviour:
   prefabRef: {fileID: 2650872054562346461}
   _remoteCollidersEnabled: 1
   _localCollidersEnabled: 1
+  remoteIsTrigger: 0
+  localIsTrigger: 0
   localLayer: 10
   remoteLayer: 9
+  remoteIncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  localIncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  remoteExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  localExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
   fingerCollision: 1
   handCollision: 1
   armCollision: 1

@@ -17,10 +17,14 @@ namespace JetDog.UserCollider
 
 
         bool enabledSectionsDropdown = false;
-        SerializedProperty fingerColliderEnableProperty,
-            handColliderEnableProperty,
-            armColliderEnableProperty,
-            legColliderEnableProperty,
+        SerializedProperty fingerColliderEnable_R_Property,
+            fingerColliderEnable_L_Property,
+            handColliderEnable_R_Property,
+            handColliderEnable_L_Property,
+            armColliderEnable_R_Property,
+            armColliderEnable_L_Property,
+            legColliderEnable_R_Property,
+            legColliderEnable_L_Property,
             torsoColliderEnableProperty,
             headColliderEnableProperty;
 
@@ -73,10 +77,14 @@ namespace JetDog.UserCollider
             includeLayersProperty = serializedObject.FindProperty("_includeLayers");
             excludeLayersProperty = serializedObject.FindProperty("_excludeLayers");
 
-            fingerColliderEnableProperty = serializedObject.FindProperty("_fingerColliderEnable");
-            handColliderEnableProperty = serializedObject.FindProperty("_handColliderEnable");
-            armColliderEnableProperty = serializedObject.FindProperty("_armColliderEnable");
-            legColliderEnableProperty = serializedObject.FindProperty("_legColliderEnable");
+            fingerColliderEnable_R_Property = serializedObject.FindProperty("_fingerColliderEnable_R");
+            fingerColliderEnable_L_Property = serializedObject.FindProperty("_fingerColliderEnable_L");
+            handColliderEnable_R_Property = serializedObject.FindProperty("_handColliderEnable_R");
+            handColliderEnable_L_Property = serializedObject.FindProperty("_handColliderEnable_L");
+            armColliderEnable_R_Property = serializedObject.FindProperty("_armColliderEnable_R");
+            armColliderEnable_L_Property = serializedObject.FindProperty("_armColliderEnable_L");
+            legColliderEnable_R_Property = serializedObject.FindProperty("_legColliderEnable_R");
+            legColliderEnable_L_Property = serializedObject.FindProperty("_legColliderEnable_L");
             torsoColliderEnableProperty = serializedObject.FindProperty("_torsoColliderEnable");
             headColliderEnableProperty = serializedObject.FindProperty("_headColliderEnable");
 
@@ -162,10 +170,18 @@ namespace JetDog.UserCollider
 
             if (enabledSectionsDropdown)
             {
-                EditorGUILayout.PropertyField(fingerColliderEnableProperty);
-                EditorGUILayout.PropertyField(handColliderEnableProperty);
-                EditorGUILayout.PropertyField(armColliderEnableProperty);
-                EditorGUILayout.PropertyField(legColliderEnableProperty);
+                fingerColliderEnable_R_Property.boolValue = EditorGUILayout.Toggle("Finger Collider Enabled", fingerColliderEnable_R_Property.boolValue);
+                fingerColliderEnable_L_Property.boolValue = fingerColliderEnable_R_Property.boolValue;
+
+                handColliderEnable_R_Property.boolValue = EditorGUILayout.Toggle("Hand Collider Enabled", handColliderEnable_R_Property.boolValue);
+                handColliderEnable_L_Property.boolValue = handColliderEnable_R_Property.boolValue;
+
+                armColliderEnable_R_Property.boolValue = EditorGUILayout.Toggle("Arm Collider Enabled", armColliderEnable_R_Property.boolValue);
+                armColliderEnable_L_Property.boolValue = armColliderEnable_R_Property.boolValue;
+
+                legColliderEnable_R_Property.boolValue = EditorGUILayout.Toggle("Leg Collider Enabled", legColliderEnable_R_Property.boolValue);
+                legColliderEnable_L_Property.boolValue = legColliderEnable_R_Property.boolValue;
+
                 EditorGUILayout.PropertyField(torsoColliderEnableProperty);
                 EditorGUILayout.PropertyField(headColliderEnableProperty);
             }
