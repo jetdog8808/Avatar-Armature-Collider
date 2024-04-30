@@ -8,6 +8,13 @@ namespace JetDog.UserCollider
     [DefaultExecutionOrder(-2000000000), UdonBehaviourSyncMode(BehaviourSyncMode.None)]
     public class AvatarArmatureColliderSystem : UdonSharpBehaviour
     {
+        #region Constants
+        [PublicAPI]
+        public const bool RightSide = true;
+        [PublicAPI]
+        public const bool LeftSide = false;
+        #endregion Constants
+
         #region Properties
         [PublicAPI]
         //collider target public api.
