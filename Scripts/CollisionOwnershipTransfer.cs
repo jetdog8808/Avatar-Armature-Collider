@@ -21,7 +21,7 @@ namespace JetDog.UserCollider
             if (!enabled || collision.rigidbody == null) return;
 
             VRCObjectSync objSync = (VRCObjectSync)collision.rigidbody.GetComponent(typeof(VRCObjectSync));
-            if (objSync == null) return;
+            if (objSync == null || !objSync.AllowCollisionOwnershipTransfer) return;
 
             GameObject collidedGOBJ = objSync.gameObject;
             if (Networking.IsOwner(collidedGOBJ)) return;
