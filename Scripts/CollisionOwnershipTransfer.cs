@@ -18,13 +18,12 @@ namespace JetDog.UserCollider
 
         private void OnCollisionEnter(Collision collision)
         {
-            GameObject collidedGOBJ = collision.gameObject;
-            if (!enabled || !Utilities.IsValid(collidedGOBJ)) return;
+            if (!enabled || collision.rigidbody == null) return;
 
-            VRCObjectSync objSync = (VRCObjectSync)collidedGOBJ.GetComponentInParent(typeof(VRCObjectSync));
-            if (objSync == null) return;
+            VRCObjectSync objSync = (VRCObjectSync)collision.rigidbody.GetComponent(typeof(VRCObjectSync));
+            if (objSync == null || !objSync.AllowCollisionOwnershipTransfer) return;
 
-            collidedGOBJ = objSync.gameObject;
+            GameObject collidedGOBJ = objSync.gameObject;
             if (Networking.IsOwner(collidedGOBJ)) return;
 
             VRCPickup pickup = (VRCPickup)objSync.GetComponent(typeof(VRCPickup));
