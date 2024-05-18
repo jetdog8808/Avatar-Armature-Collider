@@ -19,44 +19,99 @@ namespace JetDog.UserCollider
         [PublicAPI]
         //collider target public api.
         public VRCPlayerApi UserApi { get => _userApi; }
+        /// <summary>
+        /// Returns True if either Right or Left Collider is Enabled.
+        /// </summary>
         [PublicAPI]
         public bool FingerColliderEnable { get => _fingerColliderEnable_R || _fingerColliderEnable_L; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool FingerColliderEnable_R { get => _fingerColliderEnable_R; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool FingerColliderEnable_L { get => _fingerColliderEnable_L; }
+        /// <summary>
+        /// Returns True if either Right or Left Collider is Enabled.
+        /// </summary>
         [PublicAPI]
         public bool HandColliderEnable { get => _handColliderEnable_R || _handColliderEnable_L; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool HandColliderEnable_R { get => _handColliderEnable_R; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool HandColliderEnable_L { get => _handColliderEnable_L; }
+        /// <summary>
+        /// Returns True if either Right or Left Collider is Enabled.
+        /// </summary>
         [PublicAPI]
         public bool ArmColliderEnable { get => _armColliderEnable_R || _armColliderEnable_L; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool ArmColliderEnable_R { get => _armColliderEnable_R; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool ArmColliderEnable_L { get => _armColliderEnable_L; }
+        /// <summary>
+        /// Returns True if either Right or Left Collider is Enabled.
+        /// </summary>
         [PublicAPI]
         public bool LegColliderEnable { get => _legColliderEnable_R || _legColliderEnable_L; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool LegColliderEnable_R { get => _legColliderEnable_R; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool LegColliderEnable_L { get => _legColliderEnable_L; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool TorsoColliderEnable { get => _torsoColliderEnable; }
+        /// <summary>
+        /// Returns enable State of Collider.
+        /// </summary>
         [PublicAPI]
         public bool HeadColliderEnable { get => _headColliderEnable; }
+        /// <summary>
+        /// Is Avatar Calibrated?
+        /// </summary>
         [PublicAPI]
         public bool AvatarCalibrated { get => _avatarCalibrated; }
+        /// <summary>
+        /// Is Avatar Valid, and not missing bones.
+        /// </summary>
         [PublicAPI]
         public bool AvatarValid { get => humanoidValid; }
+        /// <summary>
+        /// Update Collider on every inputed frame.
+        /// Clamped between 1-15 int
+        /// </summary>
         [PublicAPI]
         public int UpdateEveryNthFrame
         {
             get => _nThFrame;
             set => Mathf.Clamp(value, 1, 15);
         }
+        /// <summary>
+        /// Layer of collider.
+        /// </summary>
         [PublicAPI]
         public int ColliderLayer
         {
@@ -119,6 +174,9 @@ namespace JetDog.UserCollider
                 hand_R_Bone.gameObject.layer = value;
             }
         }
+        /// <summary>
+        /// Array of Rigidbodies for each bone. Order of array will be consistent.
+        /// </summary>
         [PublicAPI]
         public Rigidbody[] BoneRigidbodies
         {
@@ -152,6 +210,9 @@ namespace JetDog.UserCollider
                 };
             }
         }
+        /// <summary>
+        /// Array of Colliders for each bone. Order of array will be consistent.
+        /// </summary>
         [PublicAPI]
         public Collider[] BoneColliders
         {
@@ -185,6 +246,9 @@ namespace JetDog.UserCollider
                 };
             }
         }
+        /// <summary>
+        /// Should collision detection be enabled? (By default always enabled).
+        /// </summary>
         [PublicAPI]
         public bool DetectCollision
         {
@@ -218,6 +282,9 @@ namespace JetDog.UserCollider
                 _detectCollisions = value;
             }
         }
+        /// <summary>
+        /// Specify if this collider is configured as a trigger.
+        /// </summary>
         [PublicAPI]
         public bool ColliderIsTrigger
         {
@@ -251,6 +318,9 @@ namespace JetDog.UserCollider
                 _colliderIsTrigger = value;
             }
         }
+        /// <summary>
+        /// The additional layers that this Collider should include when deciding if the Collider can contact another Collider.
+        /// </summary>
         [PublicAPI]
         public LayerMask IncludeLayers
         {
@@ -308,6 +378,9 @@ namespace JetDog.UserCollider
                 little_R_Collider.includeLayers = _includeLayers;
             }
         }
+        /// <summary>
+        /// The additional layers that this Collider should exclude when deciding if the Collider can contact another Collider.
+        /// </summary>
         [PublicAPI]
         public LayerMask ExcludeLayers
         {
@@ -365,8 +438,14 @@ namespace JetDog.UserCollider
                 little_R_Collider.excludeLayers = _excludeLayers;
             }
         }
+        /// <summary>
+        /// State of collider visualizer.
+        /// </summary>
         [PublicAPI]
         public bool VisualizerState { get => _visualizerState; }
+        /// <summary>
+        /// Should Ownership be transfered on Collision with other objects?
+        /// </summary>
         [PublicAPI]
         public bool CollisionTransferOwnership 
         { 
@@ -547,6 +626,10 @@ namespace JetDog.UserCollider
         #region Methods
 
         #region Public Methods
+        /// <summary>
+        /// Set who this collider is for.
+        /// </summary>
+        /// <param name="player">VRCPlayerApi of the player</param>
         [PublicAPI]
         public void SetUser(VRCPlayerApi player)
         {
@@ -565,6 +648,10 @@ namespace JetDog.UserCollider
             _CalibrateToAvatar();
             _SetCollidersEnabled(true);
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetFingerColliderState(bool state)
         {
@@ -601,6 +688,11 @@ namespace JetDog.UserCollider
             little_L_Bone.gameObject.SetActive(state && little_Valid);
             little_R_Bone.gameObject.SetActive(state && little_Valid);
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
+        /// <param name="rightSide">Which side to set. Can use constant <see cref="RightSide"/> or <see cref="LeftSide"/></param>
         [PublicAPI]
         public void SetFingerColliderState(bool state, bool rightSide)
         {
@@ -642,6 +734,10 @@ namespace JetDog.UserCollider
                 little_L_Bone.gameObject.SetActive(state && little_Valid);
             }
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetHandColliderState(bool state)
         {
@@ -660,6 +756,11 @@ namespace JetDog.UserCollider
             hand_L_Bone.gameObject.SetActive(state && humanoidValid);
             hand_R_Bone.gameObject.SetActive(state && humanoidValid);
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
+        /// <param name="rightSide">Which side to set. Can use constant <see cref="RightSide"/> or <see cref="LeftSide"/></param>
         [PublicAPI]
         public void SetHandColliderState(bool state, bool rightSide)
         {
@@ -689,6 +790,10 @@ namespace JetDog.UserCollider
                 hand_L_Bone.gameObject.SetActive(state && humanoidValid);
             }
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetArmColliderState(bool state)
         {
@@ -713,6 +818,11 @@ namespace JetDog.UserCollider
             upperArm_R_Bone.gameObject.SetActive(state && humanoidValid);
             lowerArm_R_Bone.gameObject.SetActive(state && humanoidValid);
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
+        /// <param name="rightSide">Which side to set. Can use constant <see cref="RightSide"/> or <see cref="LeftSide"/></param>
         [PublicAPI]
         public void SetArmColliderState(bool state, bool rightSide)
         {
@@ -746,6 +856,10 @@ namespace JetDog.UserCollider
                 lowerArm_L_Bone.gameObject.SetActive(state && humanoidValid);
             }
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetLegColliderState(bool state)
         {
@@ -774,6 +888,11 @@ namespace JetDog.UserCollider
             lowerLeg_R_Bone.gameObject.SetActive(state && humanoidValid);
             foot_R_Bone.gameObject.SetActive(state && humanoidValid);
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
+        /// <param name="rightSide">Which side to set. Can use constant <see cref="RightSide"/> or <see cref="LeftSide"/></param>
         [PublicAPI]
         public void SetLegColliderState(bool state, bool rightSide)
         {
@@ -811,6 +930,10 @@ namespace JetDog.UserCollider
                 foot_L_Bone.gameObject.SetActive(state && humanoidValid);
             }
         }
+        /// <summary>
+        /// Sets the state of the Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetTorsoColliderState(bool state)
         {
@@ -828,6 +951,10 @@ namespace JetDog.UserCollider
             spine_Bone.gameObject.SetActive(state && humanoidValid);
             chest_Bone.gameObject.SetActive(state && humanoidValid);
         }
+        /// <summary>
+        /// Sets the state of the Collider.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetHeadColliderState(bool state)
         {
@@ -843,6 +970,9 @@ namespace JetDog.UserCollider
 
             head_Bone.gameObject.SetActive(state && humanoidValid);
         }
+        /// <summary>
+        /// On next update frame will move Colliders without interpolation.
+        /// </summary>
         [PublicAPI]
         public void TeleportCollider()
         {
@@ -882,6 +1012,11 @@ namespace JetDog.UserCollider
 
             _teleportCollider = true;
         }
+        /// <summary>
+        /// Method to get a Rigidbody from the collider system.
+        /// </summary>
+        /// <param name="bone">Which Humanoid bone you want.</param>
+        /// <returns>Rigidbody of specified bone.</returns>
         [PublicAPI]
         public Rigidbody GetBoneRigidbody(HumanBodyBones bone)
         {
@@ -1043,6 +1178,11 @@ namespace JetDog.UserCollider
 
             return boneRigidbody;
         }
+        /// <summary>
+        /// Method to get a Collider from the collider system.
+        /// </summary>
+        /// <param name="bone">Which Humanoid bone you want.</param>
+        /// <returns>Collider of specified bone.</returns>
         [PublicAPI]
         public Collider GetBoneCollider(HumanBodyBones bone)
         {
@@ -1204,6 +1344,10 @@ namespace JetDog.UserCollider
 
             return boneCollider;
         }
+        /// <summary>
+        /// Sets state for debug visualizer of the colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void VisualizeColliders(bool state)
         {

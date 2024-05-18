@@ -54,13 +54,24 @@ namespace JetDog.UserCollider
         #endregion Fields
 
         #region Properties
-
+        /// <summary>
+        /// Get state of Remote Colliders.
+        /// </summary>
         [PublicAPI]
         public bool RemoteCollidersEnabled { get => _remoteCollidersEnabled; }
+        /// <summary>
+        /// Get state of Local Collider.
+        /// </summary>
         [PublicAPI]
         public bool LocalCollidersEnabled { get => _localCollidersEnabled; }
+        /// <summary>
+        /// Reference of Instantiated Prefab.
+        /// </summary>
         [PublicAPI]
         public AvatarArmatureColliderSystem PrefabRef { get => prefabRef; }
+        /// <summary>
+        /// Reference to Local Players Collider.
+        /// </summary>
         [PublicAPI]
         public AvatarArmatureColliderSystem LocalCollider { get => localCollider; }
 
@@ -69,6 +80,10 @@ namespace JetDog.UserCollider
         #region Methods
 
         #region Public Methods
+        /// <summary>
+        /// Sets the state of Remote Colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetRemoteCollidersActive(bool state)
         {
@@ -82,12 +97,20 @@ namespace JetDog.UserCollider
             }
 
         }
+        /// <summary>
+        /// Sets the state of Local Collider.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void SetLocalColliderActive(bool state)
         {
             _localCollidersEnabled = state;
             localCollider.gameObject.SetActive(state);
         }
+        /// <summary>
+        /// Sets state for debug visualizer of the colliders.
+        /// </summary>
+        /// <param name="state">Enable State</param>
         [PublicAPI]
         public void VisualizeAllColliders(bool state)
         {
@@ -102,11 +125,19 @@ namespace JetDog.UserCollider
 
             localCollider.VisualizeColliders(state);
         }
+        /// <summary>
+        /// Toggles state of debug visualizer of the colliders.
+        /// </summary>
         [PublicAPI]
         public void ToggleVisualizerColliders()
         {
             VisualizeAllColliders(!visualizerIsOn);
         }
+        /// <summary>
+        /// Method to get reference of players collider
+        /// </summary>
+        /// <param name="playerId">VRCPlayerApi of the player</param>
+        /// <returns>Reference to users <see cref="AvatarArmatureColliderSystem"/></returns>
         [PublicAPI]
         public AvatarArmatureColliderSystem RemoteCollider(int playerId)
         {
@@ -116,6 +147,10 @@ namespace JetDog.UserCollider
             }
             return null;
         }
+        /// <summary>
+        /// Gives array of all remote colliders.
+        /// </summary>
+        /// <returns>Array of <see cref="AvatarArmatureColliderSystem"/></returns>
         [PublicAPI]
         public AvatarArmatureColliderSystem[] RemoteColliders()
         {
