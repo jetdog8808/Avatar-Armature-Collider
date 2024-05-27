@@ -107,7 +107,7 @@ namespace JetDog.UserCollider
         public int UpdateEveryNthFrame
         {
             get => _nThFrame;
-            set => Mathf.Clamp(value, 1, 15);
+            set => _nThFrame = Mathf.Clamp(value, 1, 15);
         }
         /// <summary>
         /// Layer of collider.
