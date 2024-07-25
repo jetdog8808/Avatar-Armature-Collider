@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AvatarArmatureColliderSystem
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 70176ab9e9adf9f48af85aeba50a0754,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: c5442a0197332dd48addf7716a7bfaa0,
     type: 2}
   udonAssembly: 
   assemblyError: 
   sourceCsScript: {fileID: 11500000, guid: 753cf6ec3f750904dbd7050be55a2081, type: 3}
   scriptVersion: 2
   compiledVersion: 2
-  behaviourSyncMode: 1
+  behaviourSyncMode: 0
   hasInteractEvent: 0
   scriptID: -1643787929011847894
   serializationData:

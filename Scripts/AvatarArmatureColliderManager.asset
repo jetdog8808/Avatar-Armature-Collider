@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: AvatarArmatureColliderManager
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: dc0e16a5c57a22047904b33b16aa5f7f,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 3621bb87b9219984f9625165f1d37609,
     type: 2}
   udonAssembly: 
   assemblyError: 

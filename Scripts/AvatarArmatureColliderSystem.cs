@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace JetDog.UserCollider
 {
-    [DefaultExecutionOrder(-2000000000), UdonBehaviourSyncMode(BehaviourSyncMode.None)]
+    [DefaultExecutionOrder(-2000000000), UdonBehaviourSyncMode(BehaviourSyncMode.Any)]
     public class AvatarArmatureColliderSystem : UdonSharpBehaviour
     {
         #region Constants

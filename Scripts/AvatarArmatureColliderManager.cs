@@ -182,11 +182,19 @@ namespace JetDog.UserCollider
             //start loop
             SendCustomEventDelayedSeconds(nameof(DistanceUpdateLoop), 0.05f);
         }
-        public override void OnPlayerJoined(VRCPlayerApi player)
-        {
-            AvatarArmatureColliderSystem newCollider = Instantiate(prefabRef.gameObject, Vector3.zero, Quaternion.identity).GetComponent<AvatarArmatureColliderSystem>();
-            newCollider.SetUser(player);
 
+        public override void OnPlayerRestored(VRCPlayerApi player)
+        {
+            var playerObjects = Networking.GetPlayerObjects(player);
+            AvatarArmatureColliderSystem newCollider = null;
+            for (int i = 0; i < playerObjects.Length; i++)
+            {
+                if (!Utilities.IsValid(playerObjects[i])) continue;
+                newCollider = playerObjects[i].GetComponent<AvatarArmatureColliderSystem>();
+                if (Utilities.IsValid(newCollider)) break;
+            }
+            
+            newCollider.SetUser(player);
 
             if (player.isLocal)
             {
@@ -215,10 +223,10 @@ namespace JetDog.UserCollider
                 if (visualizerIsOn) newCollider.VisualizeColliders(true);
             }
         }
+        
         public override void OnPlayerLeft(VRCPlayerApi player)
         {
             if (player.isLocal) return;
-            Destroy(((AvatarArmatureColliderSystem)colliderDictionary[player.playerId].Reference).gameObject);
             colliderDictionary.Remove(player.playerId);
             UserIdList = colliderDictionary.GetKeys();
         }

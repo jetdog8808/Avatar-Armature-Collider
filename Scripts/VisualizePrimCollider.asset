@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c333ccfdd0cbdbc4ca30cef2dd6e6b9b, type: 3}
   m_Name: VisualizePrimCollider
   m_EditorClassIdentifier: 
-  serializedUdonProgramAsset: {fileID: 11400000, guid: 242f9ce4ff93c92459730d18539d9368,
+  serializedUdonProgramAsset: {fileID: 11400000, guid: a11456c36610e8d43862b43927de4083,
     type: 2}
   udonAssembly: 
   assemblyError: 
