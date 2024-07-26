@@ -594,7 +594,33 @@ namespace JetDog.UserCollider
             middle_L_Collider_T, middle_R_Collider_T,
             ring_L_Collider_T, ring_R_Collider_T,
             little_L_Collider_T, little_R_Collider_T;
-        private VisualizePrimCollider[] colliderVisualizers;
+        private VisualizePrimCollider[] colliderVisualizers = new VisualizePrimCollider[23];
+        /* Array Order
+         * 
+         * spine
+         * chest
+         * head
+         * upperLeg_L
+         * upperLeg_R
+         * lowerLeg_L
+         * lowerLeg_R
+         * foot_L
+         * foot_R
+         * upperArm_L
+         * upperArm_R
+         * lowerArm_L
+         * lowerArm_R
+         * hand_L
+         * hand_R
+         * index_L
+         * middle_L
+         * ring_L
+         * little_L
+         * index_R
+         * middle_R
+         * ring_R
+         * little_R
+        */
         private CollisionOwnershipTransfer[] collisionTransferComps;
 
         [SerializeField]//how big colliders should be
@@ -1352,9 +1378,9 @@ namespace JetDog.UserCollider
         public void VisualizeColliders(bool state)
         {
             _visualizerState = state;
-            if (colliderVisualizers == null) return;
             foreach (VisualizePrimCollider visualizer in colliderVisualizers)
             {
+                if(visualizer == null) continue;
                 visualizer.VisualizeCollider(state);
             }
         }
@@ -1380,7 +1406,7 @@ namespace JetDog.UserCollider
                 ColliderIsTrigger = _colliderIsTrigger;
                 IncludeLayers = _includeLayers;
                 ExcludeLayers = _excludeLayers;
-                colliderVisualizers = GetComponentsInChildren<VisualizePrimCollider>(true);
+                _VisualizerRefInit();
                 collisionTransferComps = GetComponentsInChildren<CollisionOwnershipTransfer>(true);
                 if (_visualizerState && _avatarCalibrated) VisualizeColliders(true);
 
@@ -1714,6 +1740,32 @@ namespace JetDog.UserCollider
                     Physics.IgnoreCollision(colliderArray[i], colliderArray[e], true);
                 }
             }
+        }
+        private void _VisualizerRefInit()
+        {
+            colliderVisualizers[0] = spine_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[1] = chest_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[2] = head_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[3] = upperLeg_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[4] = upperLeg_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[5] = lowerLeg_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[6] = lowerLeg_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[7] = foot_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[8] = foot_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[9] = upperArm_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[10] = upperArm_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[11] = lowerArm_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[12] = lowerArm_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[13] = hand_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[14] = hand_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[15] = index_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[16] = middle_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[17] = ring_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[18] = little_L_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[19] = index_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[20] = middle_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[21] = ring_R_Collider.GetComponent<VisualizePrimCollider>();
+            colliderVisualizers[22] = little_R_Collider.GetComponent<VisualizePrimCollider>();
         }
         #endregion Setup System
 
