@@ -1391,6 +1391,7 @@ namespace JetDog.UserCollider
             if (Utilities.IsValid(_userApi))
             {
                 CollisionTransferOwnership = _collisionTransferOwnership;
+                _CheckBoneValidity();
                 _CalibrateToAvatar();
                 _SetCollidersEnabled(true);
 
