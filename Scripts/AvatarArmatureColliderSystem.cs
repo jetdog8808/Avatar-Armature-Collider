@@ -1466,6 +1466,11 @@ namespace JetDog.UserCollider
 
             _updateCollider = true;
         }
+
+        public override void OnPlayerRespawn(VRCPlayerApi player)
+        {
+            if (_userApi == player) _teleportCollider = true;
+        }
         #endregion VRC
 
         #endregion Built-in Events
